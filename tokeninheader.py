@@ -146,7 +146,7 @@ def create_task(user):
 
     return jsonify({'message': 'The New Task has been created'})
 
-@app.route('/todo/api/tasks/<int:id>', methods=['PUT'])
+@app.route('/todo/api/update_tasks/<int:id>', methods=['PUT'])
 @token_required
 def update_task(user,id):
 
@@ -161,10 +161,10 @@ def update_task(user,id):
     db.session.commit()
     return jsonify({'Message': 'The task has been updated'})
 
-@app.route('/todo/api/tasks/<int:id>', methods=['DELETE'])
+@app.route('/todo/api/delete_tasks/<int:id>', methods=['DELETE'])
 @token_required
 def delete_task(user,id):
-    task = Tasks.query.filter_by(id=user_id).first()
+    task = Tasks.query.filter_by(user_id=user.id).first()
 
     if not task:
         return jsonify({'Message': 'No task to delete'})
