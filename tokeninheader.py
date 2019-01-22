@@ -10,7 +10,7 @@ app = Flask(__name__)
 bcrypt = Bcrypt(app)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@localhost/tododb'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@localhost/todo'
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.config['SECRET_KEY'] = 'apple'
 
@@ -19,15 +19,16 @@ db = SQLAlchemy(app)
 class Tasks(db.Model):
     __tablename__ ='tasks'
     id = db.Column('id',db.Integer, primary_key=True)
-    title = db.Column('title',db.Text, primary_key=True)
-    description = db.Column('description',db.Text, primary_key=True)
-    done = db.Column('done',db.Boolean, primary_key=True)
-    user_id = db.Column('user_id',db.Integer)
+    task = db.Column('task',db.String(1000),  nullable=False)
+    status = db.Column('status',db.Boolean)
+    user_id = db.Column('user_id',db.Integer,nullable=False)
     
 class Users(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    email_id = db.Column(db.String(100), unique=True)
-    password = db.Column(db.String(500))
+    __tablename__ ='users'
+    id = db.Column('id',db.Integer, primary_key=True)
+    email_id = db.Column('email_id', db.String(500), unique=True)
+    password = db.Column('password',db.String(1000))
+
 
 
 def token_required(f):
@@ -109,9 +110,8 @@ def all_tasks(user):
 
         tasks_data = {}
         tasks_data['id'] = task.id
-        tasks_data['title'] = task.title
-        tasks_data['description'] = task.description
-        tasks_data['done'] = task.done
+        tasks_data['task'] = task.task
+        tasks_data['status'] = task.status
         output.append(tasks_data)
     return jsonify({'tasks': output})
 
@@ -127,20 +127,19 @@ def get_tasks(user):
 
         tasks_data = {}
         tasks_data['id'] = task.id
-        tasks_data['title'] = task.title
-        tasks_data['description'] = task.description
-        tasks_data['done'] = task.done
+        tasks_data['task'] = task.task
+        tasks_data['status'] = task.status
         output.append(tasks_data)
     return jsonify({'tasks': output})
 
 
-@app.route('/todo/api/create_tasks', methods=['POST'])
 @token_required
+@app.route('/todo/api/create_tasks', methods=['POST'])
 def create_task(user):
 
     data = request.get_json()
    
-    new_task = Tasks(title=data['title'],description=data['description'],done=data['done'],user_id=user.id)
+    new_task = Tasks(title=data['task'],status=data['status'],user_id=user.id)
     db.session.add(new_task)
     db.session.commit()
 
@@ -156,8 +155,7 @@ def update_task(user,id):
         return jsonify({'Message': 'No task to update'})
  
     data = request.get_json()
-    d =  bool(data['done'])
-    task.done = d
+    task.status = bool(data['status'])
     db.session.commit()
     return jsonify({'Message': 'The task has been updated'})
 
@@ -175,4 +173,4 @@ def delete_task(user,id):
     return jsonify({'Message': 'Task has been deleted successfully'})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
