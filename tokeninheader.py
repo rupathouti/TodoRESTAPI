@@ -130,16 +130,17 @@ def get_tasks(user):
         tasks_data['task'] = task.task
         tasks_data['status'] = task.status
         output.append(tasks_data)
-    return jsonify({'tasks': output})
+    return jsonify(output)
 
 
-@token_required
+
 @app.route('/todo/api/create_tasks', methods=['POST'])
+@token_required
 def create_task(user):
 
     data = request.get_json()
    
-    new_task = Tasks(title=data['task'],status=data['status'],user_id=user.id)
+    new_task = Tasks(task=data['task'],status=data['status'],user_id=user.id)
     db.session.add(new_task)
     db.session.commit()
 

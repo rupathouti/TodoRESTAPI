@@ -1,0 +1,22 @@
+
+# POST http://127.0.0.1:5000/todo/api/create_tasks HTTP/1.1
+# Content-Type: application/json
+# x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbF9pZCI6InNha3J1dGlAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTIkcFVNRmZYd0pOLzlzTHJYalZVYjJ3ZWtXRzBkQzRaZjVYNGdqVDlKUW5XWDJscGpPYzQ3WTYiLCJ1c2VyX2lkIjozLCJleHAiOjE1NDgyNjIwMTZ9.LtfZ6_Opg8-c1nhcSTwyRstBC7Nvqgb426gB6pA1J9E
+
+# {
+#     "task": "will love to play with dad",
+#     "status":0
+# }
+
+GET http://127.0.0.1:5000/todo/api/get_tasks HTTP/1.1
+Content-Type: application/json
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbF9pZCI6InNha3J1dGlAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTIkcFVNRmZYd0pOLzlzTHJYalZVYjJ3ZWtXRzBkQzRaZjVYNGdqVDlKUW5XWDJscGpPYzQ3WTYiLCJ1c2VyX2lkIjozLCJleHAiOjE1NDgyNjI1NDd9.12am6WQgQsky_TsOP5IkM5oKkwPciPyQVuEZ2JGhB6c
+
+# POST http://127.0.0.1:5000/todo/api/create_tasks HTTP/1.1
+# Content-Type: application/json
+# x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbF9pZCI6InNha3J1dGlAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTIkcFVNRmZYd0pOLzlzTHJYalZVYjJ3ZWtXRzBkQzRaZjVYNGdqVDlKUW5XWDJscGpPYzQ3WTYiLCJ1c2VyX2lkIjozLCJleHAiOjE1NDgyNjI3MzR9.6ZdPbI1p39VEfzMEyJY5eaMxxTORMGugEvoNCckLG98
+
+# {
+#     "task":"HELLO PAPPA1 ",
+#     "status":0
+# }
